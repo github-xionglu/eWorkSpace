@@ -1,0 +1,78 @@
+回归golden批量vim替换：
+	%s#^(WARN|ERROR|INFO),[a-zA-Z]+,#lappend ReportGolden {&#g | %s#(/[^ /]+)+(/[^ /]+.[a-zA-Z]+:[0-9]+)$#(/[^ /]+)+\2#g | %s#(/[^ /]+.[a-zA-Z]+:[0-9]+)$#&}#g
+
+==========================
+高优先级待办
+
+--------------------------
+LPC
+新增命令测试：
+ analyze_design, elaborate_design, save_data, restore_data, set_libpath
+
+
+--------------------------
+压测
+ 增加重复次数
+	re-read （现场：重复remove-read十次，出现崩溃问题）
+	check （现场：重复check 100次，结果出现随机
+
+--------------------------
+line number
+	对于instance的行号：
+	read_design的方式定位为instance示例化的行；
+	read_design -netlist的方式定位为instance实例化结束的行。
+
+
+--------------------------
+GUI:
+	1115之前我们将交付需求的功能在lint中做一轮测试
+	非交付功能可以在后续工作中补充测试
+
+
+
+==========================
+低优先级待办
+--------------------------
+ DFT param随机性测试（康凯脚本）
+
+--------------------------
+ get_hdl_info进行小测例提取功能
+
+ 	lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：0/3）
+
+ 		#46304: [ELPC][GUI]clicking on the Verilog files in the Source Viewer will cause the GUI to become sluggish --- new
+		#46306: [ELPC][command][get_attributes]Error in obtaining the instance line number ---- new
+ 		#46328: [ELPC][command][get_hdl_info]The result returned by get_hdl_info is empty ---- close
+ 		#46381: [ELPC][GUI]After executing "check_upf" in gui, the "Violation_Tree" did not get updated ---- new
+ 	dft #46464 master issue （get_hdl_info: 0/1; 引申issue：0/0）
+
+		 #46317: [EDFT][command][get_hdl_info]The obtained always block is incomplete --- new
+
+
+--------------------------
+ cmd阶段可用性回归测例（rd0）
+
+
+--------------------------
+ Pyslang (slang编译HDL)
+
+--------------------------
+ #9356:
+	 1. The copyright messages are not shown when the tool starts (it should) ---- 启动工具时显示版权信息
+	 2. The copyright messages are shown every time a report_message command is issued (it should not) ---- report_message不应该显示版权声明
+	 3. The EchoCommand message is shown on STDOUT (it should not) ---- EchoCommand不应该在terminal中打印
+	 4. The log files also show un-needed EchoCommand and repeated copyright messages (it should show EchoCommand but not copyright messages) ---- 日志中report_message不应该显示版本信息，日志中report_message不应该显示工具内部本身的source信息，日志中启动工具时应该显示版本信息和工具内部本身的source信息
+	 5. The 3 source information should not be shown in any cases. ---- report_message不应该显示工具内部本身的source信息
+	
+
+--------------------------
+GUI 压测脚本
+	20250921 - 第一版发现28个crash问题，PA 22， CDC 6
+
+
+==========================
+1107周会分享
+	吴俊 参照标准liberty分享lpc常见library
+	燕宁 分享vim常用操作
+
+

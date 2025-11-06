@@ -38,12 +38,12 @@ GUI:
 --------------------------
  get_hdl_info进行小测例提取功能
 
- 	lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：0/3）
+ 	lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：2/3）
 
- 		#46304: [ELPC][GUI]clicking on the Verilog files in the Source Viewer will cause the GUI to become sluggish --- new
+ 		#46304: [ELPC][GUI]clicking on the Verilog files in the Source Viewer will cause the GUI to become sluggish --- close
 		#46306: [ELPC][command][get_attributes]Error in obtaining the instance line number ---- new
  		#46328: [ELPC][command][get_hdl_info]The result returned by get_hdl_info is empty ---- close
- 		#46381: [ELPC][GUI]After executing "check_upf" in gui, the "Violation_Tree" did not get updated ---- new
+ 		#46381: [ELPC][GUI]After executing "check_upf" in gui, the "Violation_Tree" did not get updated ---- close
  	dft #46464 master issue （get_hdl_info: 0/1; 引申issue：0/0）
 
 		 #46317: [EDFT][command][get_hdl_info]The obtained always block is incomplete --- new

@@ -1,4 +1,4 @@
-回归golden批量vim替换：
+﻿回归golden批量vim替换：
 	%s#^(WARN|ERROR|INFO),[a-zA-Z]+,#lappend ReportGolden {&#g | %s#(/[^ /]+)+(/[^ /]+.[a-zA-Z]+:[0-9]+)$#(/[^ /]+)+\2#g | %s#(/[^ /]+.[a-zA-Z]+:[0-9]+)$#&}#g
 
 ==========================
@@ -25,10 +25,10 @@ line number
 
 --------------------------
 GUI:
-	1115之前我们将交付需求的功能在lint中做一轮测试
+	1115之前我们将交付需求的功能在lint中做一轮测试 ---- 预计下周2完成
 	非交付功能可以在后续工作中补充测试
 
-
+	1107：set_param gui.schematic_router_version 4测试任务（邮件：Archit Rawat 20251031 12:34 Improvements in schematic routing）
 
 ==========================
 低优先级待办

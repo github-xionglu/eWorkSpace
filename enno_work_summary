@@ -12,10 +12,11 @@ LPC
 
 --------------------------
 压测
- 增加重复次数
-	re-read （现场：重复remove-read十次，出现崩溃问题）
-	check （现场：重复check 100次，结果出现随机
+	增加重复次数
+		re-read （现场：重复remove-read十次，出现崩溃问题）
+		check （现场：重复check 100次，结果出现随机
 
+	发现查找grep check_xxx命令时，未考虑check_xxx命令在嵌套文件中，导致未能正确获取从而引起的误报crash。已在dft check压测脚本中优化。 其他产品脚本待优化
 --------------------------
 line number
 	对于instance的行号：
@@ -29,6 +30,8 @@ GUI:
 	非交付功能可以在后续工作中补充测试
 
 	1107：set_param gui.schematic_router_version 4测试任务（邮件：Archit Rawat 20251031 12:34 Improvements in schematic routing）
+
+	1115: GUI测试文档按照步骤，对demo用例进行按步骤操作：1. 检查操作步骤是否正确；2. 检查用例是否匹配
 
 ==========================
 低优先级待办
@@ -69,14 +72,11 @@ GUI:
 GUI 压测脚本
 	20250921 - 第一版发现28个crash问题，PA 22， CDC 6
 
---------------------------
-正前标记完吴俊指给正前的issue ，review on-hold和rejected的issue --- 20251106已完成
 
 
 
 ==========================
-1107周会分享
-	吴俊 参照标准liberty分享lpc常见library
-	燕宁 分享vim常用操作
-
+1114周会未安排分享，1121周会安排分享：
+	悦彬：gui_apply_action
+	黄冬：
 

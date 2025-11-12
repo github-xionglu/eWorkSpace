@@ -31,7 +31,7 @@ GUI:
 
 	1107：set_param gui.schematic_router_version 4测试任务（邮件：Archit Rawat 20251031 12:34 Improvements in schematic routing）
 
-	1115: GUI测试文档按照步骤，对demo用例进行按步骤操作：1. 检查操作步骤是否正确；2. 检查用例是否匹配
+	1115: GUI测试文档按照步骤，对demo用例进行按步骤操作：1. 检查操作步骤是否正确；2. 检查用例是否匹配 ---- CA最新要求1112下班前需完成
 
 ==========================
 低优先级待办

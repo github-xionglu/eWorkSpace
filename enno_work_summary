@@ -17,6 +17,9 @@ LPC
 		check （现场：重复check 100次，结果出现随机
 
 	发现查找grep check_xxx命令时，未考虑check_xxx命令在嵌套文件中，导致未能正确获取从而引起的误报crash。已在dft check压测脚本中优化。 其他产品脚本待优化
+
+	check压测：由于case中PASS|FAIL会执行config_message -reset，导致重复check的压测结果可能存在差异导致对比失败数量大量增加 ---- 已优化脚本处理
+
 --------------------------
 line number
 	对于instance的行号：

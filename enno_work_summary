@@ -38,7 +38,11 @@ GUI:
 QOR：
 	1. qor流程中增加保存当天的报错message report文件，以方便直接regolden
 	2. qor增加当次与前一次对比功能，输出新增/消失的message report，以csv格式保存，方便分析
-
+	------------
+	修改需求：
+	1. qor流程中增加保存当天的报错message report文件，以方便直接regolden
+	2. qor增加当次与golden对比功能，输出新增/消失的message report，以csv格式保存，方便分析
+	------------ 基本功能已实现，更新lpc和dft部分qor case，待确认结果正确性
 
 ==========================
 低优先级待办

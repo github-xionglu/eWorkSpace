@@ -10,6 +10,8 @@ LPC
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
 
+#30305：retention lib，D:\lxiong.ENNOCAD\Desktop\我的文档\PV测试\LPC版本测试\test_lib\retention.lib
+
 --------------------------
 压测
 	增加重复次数
@@ -17,8 +19,6 @@ LPC
 		check （现场：重复check 100次，结果出现随机
 
 	发现查找grep check_xxx命令时，未考虑check_xxx命令在嵌套文件中，导致未能正确获取从而引起的误报crash。已在dft check压测脚本中优化。 其他产品脚本待优化
-
-	check压测：由于case中PASS|FAIL会执行config_message -reset，导致重复check的压测结果可能存在差异导致对比失败数量大量增加 ---- 已优化脚本处理
 
 --------------------------
 line number
@@ -29,12 +29,16 @@ line number
 
 --------------------------
 GUI:
-	1115之前我们将交付需求的功能在lint中做一轮测试 ---- 预计下周2完成
+	1115之前我们将交付需求的功能在lint中做一轮测试 ---- 1114前已完成
 	非交付功能可以在后续工作中补充测试
 
 	1107：set_param gui.schematic_router_version 4测试任务（邮件：Archit Rawat 20251031 12:34 Improvements in schematic routing）
 
-	1115: GUI测试文档按照步骤，对demo用例进行按步骤操作：1. 检查操作步骤是否正确；2. 检查用例是否匹配 ---- CA最新要求1112下班前需完成
+--------------------------
+QOR：
+	1. qor流程中增加保存当天的报错message report文件，以方便直接regolden
+	2. qor增加当次与前一次对比功能，输出新增/消失的message report，以csv格式保存，方便分析
+
 
 ==========================
 低优先级待办
@@ -42,7 +46,13 @@ GUI:
  DFT param随机性测试（康凯脚本）
 
 --------------------------
- get_hdl_info进行小测例提取功能
+get_fanin/fanout （1231之前需完成测试）
+	lpc #48065 master issue
+
+	dft #48066 master issue
+
+--------------------------
+ get_hdl_info进行小测例提取功能 （1231之前需完成测试）
 
  	lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：2/3）
 

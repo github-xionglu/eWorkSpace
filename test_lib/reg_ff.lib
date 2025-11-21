@@ -1,0 +1,270 @@
+library(my_sequential_cell_vdd1v0) {
+  delay_model : table_lookup;
+  in_place_swap_mode : match_footprint;
+
+  /* unit attributes */
+  time_unit : "1ns";
+  voltage_unit : "1V";
+  current_unit : "1mA";
+  pulling_resistance_unit : "1kohm";
+  leakage_power_unit : "1nW";
+  capacitive_load_unit (1,pf);
+
+  power_supply () {
+      default_power_rail : RAIL_VDD;
+      power_rail( RAIL_VDD, 1.0 );
+      power_rail( RAIL_VSS, 0 );
+  }
+
+  slew_upper_threshold_pct_rise : 90;
+  slew_lower_threshold_pct_rise : 10;
+  slew_upper_threshold_pct_fall : 90;
+  slew_lower_threshold_pct_fall : 10;
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  nom_process : 1;
+  nom_voltage : 1.0;
+  nom_temperature : 125;
+  operating_conditions ( slow ) {
+     process : 1;
+     voltage : 1.0;
+     temperature : 125;
+     power_rail( RAIL_VDD, 1.0 );
+     power_rail( RAIL_VSS, 0 );
+  }
+  default_operating_conditions : slow;
+
+cell (ff_ck_rs_111) {
+  area : 11.970000;
+  cell_leakage_power : 0.387569;
+  rail_connection( VDD, RAIL_VDD );
+  rail_connection( VSS, RAIL_VSS );
+  ff (N35,QBINT) {
+    next_state : "D";
+    clocked_on : "(CK)";
+    clear : "(R)";
+    preset : "(S)";
+    clear_preset_var1 : L;
+    clear_preset_var2 : L;
+  }
+  pin(CK)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.00064443;
+    rise_capacitance : 0.000644171;
+    fall_capacitance : 0.00064443;
+    clock : true;
+  }
+  pin(D)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000648281;
+    rise_capacitance : 0.000646533;
+    fall_capacitance : 0.000648281;
+  }
+  pin(Q)  {
+    direction : output;
+    output_signal_level : RAIL_VDD;
+    capacitance : 0;
+    rise_capacitance : 0;
+    fall_capacitance : 0;
+    max_capacitance : 0.264649;
+    function : "N35";
+  }
+  pin(R)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000545192;
+    rise_capacitance : 0.000544833;
+    fall_capacitance : 0.000545192;
+  }
+  pin(S)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.00131015;
+    rise_capacitance : 0.00131015;
+    fall_capacitance : 0.00130994;
+  }
+}
+
+
+cell (ff_ck_rs_000) {
+  area : 11.970000;
+  cell_leakage_power : 0.387569;
+  rail_connection( VDD, RAIL_VDD );
+  rail_connection( VSS, RAIL_VSS );
+  ff (N35,QBINT) {
+    next_state : "D";
+    clocked_on : "(!CKN)";
+    clear : "(!RN)";
+    preset : "(!SN)";
+    clear_preset_var1 : H;
+    clear_preset_var2 : L;
+  }
+  pin(CKN)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.00064443;
+    rise_capacitance : 0.000644171;
+    fall_capacitance : 0.00064443;
+    clock : true;
+  }
+  pin(D)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000648281;
+    rise_capacitance : 0.000646533;
+    fall_capacitance : 0.000648281;
+  }
+  pin(Q)  {
+    direction : output;
+    output_signal_level : RAIL_VDD;
+    capacitance : 0;
+    rise_capacitance : 0;
+    fall_capacitance : 0;
+    max_capacitance : 0.264649;
+    function : "N35";
+  }
+  pin(QN)  {
+    direction : output;
+    output_signal_level : RAIL_VDD;
+    capacitance : 0;
+    rise_capacitance : 0;
+    fall_capacitance : 0;
+    max_capacitance : 0.256449;
+    function : "QBINT";
+  }
+  pin(RN)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000545192;
+    rise_capacitance : 0.000544833;
+    fall_capacitance : 0.000545192;
+  }
+  pin(SN)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.00131015;
+    rise_capacitance : 0.00131015;
+    fall_capacitance : 0.00130994;
+  }
+}
+
+
+cell (latch_ck_rs_111) {
+  area : 8.208000;
+  cell_leakage_power : 0.33872;
+  rail_connection( VDD, RAIL_VDD );
+  rail_connection( VSS, RAIL_VSS );
+  latch (QINT,N5) {
+    data_in : "D";
+    enable : "G";
+    clear : "R";
+    preset : "S";
+  }
+  pin(D)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000556637;
+    rise_capacitance : 0.000554434;
+    fall_capacitance : 0.000556637;
+    }
+  pin(G)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000568427;
+    rise_capacitance : 0.000568427;
+    fall_capacitance : 0.000479979;
+    clock : true;
+   }
+  pin(Q)  {
+    direction : output;
+    output_signal_level : RAIL_VDD;
+    capacitance : 0;
+    rise_capacitance : 0;
+    fall_capacitance : 0;
+    max_capacitance : 0.265495;
+    function : "QINT";
+  }
+  pin(QN)  {
+    direction : output;
+    output_signal_level : RAIL_VDD;
+    capacitance : 0;
+    rise_capacitance : 0;
+    fall_capacitance : 0;
+    max_capacitance : 0.264133;
+    function : "N5";
+  }
+  pin(R)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000920322;
+    rise_capacitance : 0.000914222;
+    fall_capacitance : 0.000920322;
+    clock : true;
+  }
+  pin(S)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000731834;
+    rise_capacitance : 0.000731834;
+    fall_capacitance : 0.000730144;
+  }
+}
+
+cell (latch_ck_rs_000) {
+  area : 8.208000;
+  cell_leakage_power : 0.33872;
+  rail_connection( VDD, RAIL_VDD );
+  rail_connection( VSS, RAIL_VSS );
+  latch (QINT,N5) {
+    data_in : "D";
+    enable : "(!G)";
+    clear : "(!R)";
+    preset : "(!S)";
+  }
+  pin(D)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000556637;
+    rise_capacitance : 0.000554434;
+    fall_capacitance : 0.000556637;
+    }
+  pin(G)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000568427;
+    rise_capacitance : 0.000568427;
+    fall_capacitance : 0.000479979;
+    clock : true;
+   }
+  pin(Q)  {
+    direction : output;
+    output_signal_level : RAIL_VDD;
+    capacitance : 0;
+    rise_capacitance : 0;
+    fall_capacitance : 0;
+    max_capacitance : 0.265495;
+    function : "QINT";
+  }
+  pin(R)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000920322;
+    rise_capacitance : 0.000914222;
+    fall_capacitance : 0.000920322;
+    clock : true;
+  }
+  pin(S)  {
+    direction : input;
+    input_signal_level : RAIL_VDD;
+    capacitance : 0.000731834;
+    rise_capacitance : 0.000731834;
+    fall_capacitance : 0.000730144;
+  }
+}
+
+
+}

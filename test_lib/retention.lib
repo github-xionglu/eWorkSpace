@@ -1,0 +1,316 @@
+library (BALLOON_RET_FLOP) {
+    delay_model : table_lookup;
+    input_threshold_pct_rise : 50 ;
+    input_threshold_pct_fall : 50 ;
+    output_threshold_pct_rise : 50 ;
+    output_threshold_pct_fall : 50 ;
+    slew_lower_threshold_pct_fall : 30.0 ;
+    slew_lower_threshold_pct_rise : 30.0 ;
+    slew_upper_threshold_pct_fall : 70.0 ;
+    slew_upper_threshold_pct_rise : 70.0 ;
+
+    time_unit : "1ns";
+    voltage_unit : "1V";
+    current_unit : "1uA";
+    pulling_resistance_unit : "1kohm";
+    capacitive_load_unit (0.1,ff);
+    
+    voltage_map (VDD, 1.0);
+    voltage_map (VDDB, 0.9);
+    voltage_map (VSS, 0.0);
+    nom_process : 1.0;
+    nom_temperature : 25.0;
+    nom_voltage : 1.1;
+
+    operating_conditions(typ) {
+        process : 1.0 ;
+        temperature : 25 ;
+        voltage : 1.1 ;
+        tree_type : "balanced_tree" ;
+    }
+    default_operating_conditions : typ;
+    wire_load("05*05") {
+        resistance : 1.0 ;
+        capacitance : 25 ;
+        area : 1.1 ;
+        slope : "balanced_tree" ;
+        fanout_length(1,0.39);
+    }
+
+    cell (balloon_ret_cell) {
+        retention_cell : retdiff;
+        area : 1.0 ;
+        pg_pin(VDD) {
+            voltage_name : VDD;
+            pg_type : primary_power;
+        }
+        pg_pin(VSS) {
+            voltage_name : VSS;
+            pg_type : primary_ground;
+        }
+        pg_pin(VDDB) {
+            voltage_name : VDDB;
+            pg_type : backup_power;
+        }
+        ff ( Q1, QN1 ) {
+            clocked_on : " CK ";
+            next_state : " D ";
+            clear : " (RESTORE * !Q2) + R ";
+            preset : " (RESTORE * Q2) + S ";
+            clear_preset_var1 : "L";
+            clear_preset_var2 : "H";
+            power_down_function : "!VDD+VSS";
+            /* Latch 1 is powered by primary power supply */
+        }
+        latch("Q2", "QN2") {
+            enable : " SAVE ";
+            data_in : "Q";
+            power_down_function : "!VDDB+VSS";
+            /* Latch 2 is powered by backup power supply */
+        }
+        clock_condition() {
+            clocked_on : "CK";
+            required_condition : "RESTORE";
+            hold_state : L;
+        }
+        clear_condition() {
+            input : "R";
+            required_condition : "RESTORE";
+        }
+        preset_condition() {
+            input : "S";
+            required_condition : "RRESTOREET";
+        }
+        pin(RESTORE) {
+            direction : input;
+            capacitance : 0.1;
+            related_power_pin : VDDB;
+            related_ground_pin : VSS;
+            retention_pin(restore, "0");
+            restore_action : "H";
+            restore_condition : "!CK";
+            restore_edge_type : "leading";
+        }
+        pin(SAVE) {
+            direction : input;
+            capacitance : 0.1;
+            related_power_pin : VDDB;
+            related_ground_pin : VSS;
+            retention_pin(save, "0");
+            save_action : "H";
+            save_condition : "!CK";
+        }
+        pin(D) {
+            direction : input;
+            capacitance : 0.1;
+            related_power_pin : VDD;
+            related_ground_pin : VSS;
+        }
+        pin(CK) {
+            direction : input;
+            clock : true;
+            capacitance : 0.1;
+            related_power_pin : VDD;
+            related_ground_pin : VSS;
+        }
+        pin (R) {
+            direction : "input";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+            capacitance : 1.0;
+        }
+        pin (S) {
+            direction : "input";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+            capacitance : 1.0;
+        }
+        pin(Q) {
+            direction : output;
+            function : "Q1";
+            related_power_pin : VDD;
+            related_ground_pin : VSS;
+            timing() {
+                related_pin : "CK";
+                timing_type : rising_edge;
+                cell_rise(scalar) { values ( "0.1");}
+                rise_transition(scalar) { values ( "0.1");}
+                cell_fall(scalar) { values ( "0.1");}
+                fall_transition(scalar) { values ( "0.1");}
+            }
+        }
+        retention_condition() {
+            power_down_function : "!VDD+VSS";
+            required_condition: "!SAVE";
+        }
+        pin(q1) {
+            direction : internal;
+            function : "Q2";
+        }
+        
+    }
+
+    cell (edge_trigger) {
+        retention_cell : "edge_trigger";
+        area : 1.0 ;
+        pg_pin (VDD) {
+            voltage_name : "VDD";
+            pg_type : "primary_power";
+        }
+        pg_pin (VDDB) {
+            voltage_name : "VDDB";
+            pg_type : "backup_power";
+        }
+        pg_pin (VSS) {
+            voltage_name : "VSS";
+            pg_type : "primary_ground";
+        }
+        ff ("IQ1" , "IQN1") {
+            next_state : "D";
+            clocked_on : "CK";
+            clear : "RN + (RET * q1')";
+            preset : "SN + (RET * q1)";
+            clear_preset_var1 : L;
+            clear_preset_var1 : H;
+            power_down_function : "!VDD + VSS";
+        }
+        ff ("IQ2" , "IQN2") {
+            next_state : "Q";
+            clocked_on : "RET";
+            power_down_function : "!VDDS + VSS"; 
+            /* Flip-Flop “Flop2” is powered by Primary power supply */
+        }
+        clock_condition() {
+            clocked_on : "CK"; /* clock must be Low to go into retention mode */
+            hold_state : "N"; /* when clock switches (either direction), RET must be High */
+            condition : "RET";
+        }
+        clear_condition() {
+            input : "!RN"; /* When clear de-asserts, RET must be high to allow Low value to be transferred to Flop1 */
+            required_condition : "RET";
+        }
+        preset_condition() {
+            input : "!SN"; /* When clear de-asserts, RET must be high to allow High value to be transferred to Flop1 */
+            required_condition : "RET";
+        }
+        retention_condition() {
+            power_down_function : "!VDD+VSS";
+            required_condition: "RET";
+        }
+        pin (q1) {
+            direction : "internal";
+            function : "IQ2";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+        }
+        pin (CK) {
+            direction : "input";
+            clock : true;
+            capacitance : 1.0;
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+        }
+        pin (RET) {
+            related_power_pin : "VDDB";
+            related_ground_pin : "VSS";
+            capacitance : 1.0;
+            direction : "input";
+            retention_pin("save_restore",0);
+            save_action : "R";
+            restore_action : "R";
+            save_condition : "!CK";
+            restore_condition : "!CK";
+            restore_edge_type : "leading";
+        }
+        pin (D) {
+            direction : "input";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+            capacitance : 1.0;
+        }
+        pin (RN) {
+            direction : "input";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+            capacitance : 1.0;
+        }
+        pin (SN) {
+            direction : "input";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+            capacitance : 1.0;
+        }
+        pin (Q) {
+            direction : "output";
+            function : "IQ1";
+            related_power_pin : "VDD";
+            related_ground_pin : "VSS";
+        }
+    }
+
+    cell (retention_flip_flop) {
+        retention_cell : retdiff;
+        area : 1.0;
+
+        pg_pin (VDD) {
+            voltage_name : VDD;
+            pg_type : primary_power;
+        }
+        pg_pin (VSS) {
+            voltage_name : VSS;
+            pg_type : primary_ground;
+        }
+        pg_pin (VDDB) {
+            voltage_name : VDDB;
+            pg_type : backup_power;
+        }
+        latch ( Q1, QN1 ) {
+            enable : CK;
+            data_in : D;
+            power_down_function : "!VDD+VSS";
+        }
+        latch ( Q2, QN2 ) {
+            enable : "CK'";
+            data_in : Q1;
+            power_down_function : "!VDDB+VSS";
+        }
+        pin(D) {
+            direction : input;
+            capacitance : 0.1;
+            related_power_pin : VDD;
+            related_ground_pin : VSS;
+        }
+        pin(CK) {
+            direction : input;
+            clock : true;
+            capacitance : 0.1;
+            related_power_pin : VDDB;
+            related_ground_pin : VSS;
+            retention_pin(save_restore, "1");
+            save_action : "L";
+            restore_action : "H";
+        }
+        pin (Q) {
+            direction : output;
+            function : "Q2";
+            related_power_pin : VDD;
+            related_ground_pin : VSS;
+            timing() {
+                related_pin : "CK";
+                timing_type : rising_edge;
+                cell_rise(scalar) { values ( "0.1");}
+                rise_transition(scalar) { values ( "0.1");}
+                cell_fall(scalar) { values ( "0.1");}
+                fall_transition(scalar) { values ( "0.1");}
+            }
+        }
+        retention_condition() {
+            power_down_function : "!VDD+VSS";
+            required_condition: "CK'";
+        }
+    }
+
+
+}
+
+

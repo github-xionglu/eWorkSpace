@@ -10,7 +10,6 @@ LPC
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
 
-#30305：retention lib，D:\lxiong.ENNOCAD\Desktop\我的文档\PV测试\LPC版本测试\test_lib\retention.lib
 
 --------------------------
 压测
@@ -18,7 +17,9 @@ LPC
 		re-read （现场：重复remove-read十次，出现崩溃问题）
 		check （现场：重复check 100次，结果出现随机
 
-	发现查找grep check_xxx命令时，未考虑check_xxx命令在嵌套文件中，导致未能正确获取从而引起的误报crash。已在dft check压测脚本中优化。 其他产品脚本待优化
+	
+	GUI 压测脚本
+	
 
 --------------------------
 line number
@@ -36,13 +37,7 @@ GUI:
 
 --------------------------
 QOR：
-	1. qor流程中增加保存当天的报错message report文件，以方便直接regolden
-	2. qor增加当次与前一次对比功能，输出新增/消失的message report，以csv格式保存，方便分析
-	------------
-	修改需求：
-	1. qor流程中增加保存当天的报错message report文件，以方便直接regolden
-	2. qor增加当次与golden对比功能，输出新增/消失的message report，以csv格式保存，方便分析
-	------------ 基本功能已实现，更新lpc和dft部分qor case，待确认结果正确性
+
 
 ==========================
 低优先级待办
@@ -84,12 +79,6 @@ get_fanin/fanout （1231之前需完成测试）
 	 4. The log files also show un-needed EchoCommand and repeated copyright messages (it should show EchoCommand but not copyright messages) ---- 日志中report_message不应该显示版本信息，日志中report_message不应该显示工具内部本身的source信息，日志中启动工具时应该显示版本信息和工具内部本身的source信息
 	 5. The 3 source information should not be shown in any cases. ---- report_message不应该显示工具内部本身的source信息
 	
-
---------------------------
-GUI 压测脚本
-	20250921 - 第一版发现28个crash问题，PA 22， CDC 6
-
-
 
 
 ==========================

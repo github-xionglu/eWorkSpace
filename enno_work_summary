@@ -38,6 +38,8 @@ GUI:
 --------------------------
 QOR：
 
+MFP：
+简单写一份测试进度总结
 
 ==========================
 低优先级待办
@@ -79,6 +81,32 @@ get_fanin/fanout （1231之前需完成测试）
 	 4. The log files also show un-needed EchoCommand and repeated copyright messages (it should show EchoCommand but not copyright messages) ---- 日志中report_message不应该显示版本信息，日志中report_message不应该显示工具内部本身的source信息，日志中启动工具时应该显示版本信息和工具内部本身的source信息
 	 5. The 3 source information should not be shown in any cases. ---- report_message不应该显示工具内部本身的source信息
 	
+
+自动打包：
+支持选择性打包文件或目录
+支持自动识别golden文件
+
+一键regolden：
+批量regolden需要脚本支持
+
+自动打包功能需求：
+1. comparison_table.txt -> reference.txt （低优先级）
+2. 
+test.tcl:
+
+read_design ../d1/test.v
+read_design ../d2/test.v
+read_design /a/b/c/test.v
+
+.tar.gz:
+./../d1/test.v ? --> ./$(realpath ../d1/test.v)
+./../d2/test.v ? --> ./$(realpath ../d2/test.v)
+./a/b/c/test.v
+
+comparison_table.txt -> reference.txt
+../d1/test.v ./../d1/test.v --> ../d1/test.v ./$(realpath ../d1/test.v)
+../d2/test.v ./../d2/test.v --> ../d2/test.v ./$(realpath ../d2/test.v)
+/a/b/c/test.v ./a/b/c/test.v
 
 
 ==========================

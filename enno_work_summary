@@ -36,19 +36,13 @@ GUI:
 	1115之前我们将交付需求的功能在lint中做一轮测试 ---- 1114前已完成
 	非交付功能可以在后续工作中补充测试
 
-	1107：set_param gui.schematic_router_version 4测试任务（邮件：Archit Rawat 20251031 12:34 Improvements in schematic routing）
+	demo文档回归覆盖，使用发布分支录制并传入发布分支：
+		cdc： cdc_202511
+		lint： 
 
 --------------------------
 QOR：
 
-MFP：
-简单写一份测试进度总结:
-1017~1112完成44条rule的一轮测试，发现issue 97条，其中crash类问题3条，功能类问题84条，建议类问题10条。
-根据一轮测试情况评估需要二轮测试的rule 13条。
-1110~1121完成10/13条rule的二轮测试，其中3条未完成测试的rule为开发存在新功能开发的rule，还未转测，发现issue 28条，其中crash类问题0条，功能类问题23条，建议类问题5条。
-0807~0911投入1人力，0912支援现场暂停MFP
-1017~1022投入1人力
-1023~1121投入2人力
 
 
 ==========================
@@ -58,22 +52,25 @@ MFP：
 
 --------------------------
 get_fanin/fanout （1231之前需完成测试）
-	lpc #48065 master issue
+	lpc #48065 master issue （2/17; 引申issue：0/0）
 
-	dft #48066 master issue
+	dft #48066 master issue （0/12; 引申issue：0/0）
 
 --------------------------
  get_hdl_info进行小测例提取功能 （1231之前需完成测试）
+	#41582： Port get_hdl/get_hdl_info to all products
+		lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：2/3） --- done; #48701： grep_hdl --- todo
 
- 	lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：2/3）
+			#46304: [ELPC][GUI]clicking on the Verilog files in the Source Viewer will cause the GUI to become sluggish --- close
+			#46306: [ELPC][command][get_attributes]Error in obtaining the instance line number ---- new
+			#46328: [ELPC][command][get_hdl_info]The result returned by get_hdl_info is empty ---- close
+			#46381: [ELPC][GUI]After executing "check_upf" in gui, the "Violation_Tree" did not get updated ---- close
 
- 		#46304: [ELPC][GUI]clicking on the Verilog files in the Source Viewer will cause the GUI to become sluggish --- close
-		#46306: [ELPC][command][get_attributes]Error in obtaining the instance line number ---- new
- 		#46328: [ELPC][command][get_hdl_info]The result returned by get_hdl_info is empty ---- close
- 		#46381: [ELPC][GUI]After executing "check_upf" in gui, the "Violation_Tree" did not get updated ---- close
- 	dft #46464 master issue （get_hdl_info: 0/1; 引申issue：0/0）
+		dft #46464 master issue （get_hdl_info: 1/2; 引申issue：0/0） --- test done; #48702：grep_hdl --- todo
 
-		 #46317: [EDFT][command][get_hdl_info]The obtained always block is incomplete --- new
+			#46317: [EDFT][command][get_hdl_info]The obtained always block is incomplete --- close
+			#48458: [EDFT][get_hdl_info] When an invalid file path is specified for the option -output, the tool does not report an error and does not generate the corresponding Verilog file. --- mew
+
 
 
 --------------------------
@@ -93,9 +90,6 @@ get_fanin/fanout （1231之前需完成测试）
 	
 
 ==========================
-1128周会安排分享：
-	黄冬：dft命令与各种器件，原理
-	
 1205周会安排分享：
 	家荣：mfp原理
 	吴俊： get_fanin/fanout

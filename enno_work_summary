@@ -1,5 +1,7 @@
 ﻿回归golden批量vim替换：
-	%s#^(WARN|ERROR|INFO),[a-zA-Z]+,#lappend ReportGolden {&#g | %s#(/[^ /]+)+(/[^ /]+.[a-zA-Z]+:[0-9]+)$#(/[^ /]+)+\2#g | %s#(/[^ /]+.[a-zA-Z]+:[0-9]+)$#&}#g
+	%s#^\(ERROR\|WARN\|INFO\),[a-zA-Z]\+,#lappend ReportGolden {&#g | %s#\(/[^ /]\+\)\+\(/[^ /]\+\.[a-zA-Z]\+:[0-9]\+\)$#(/[^ /]+)+\2#g | %s#\(/[^ /]\+.[a-zA-Z]\+:[0-9]\+\)$#&}#g
+
+	sed -i "s/$(basename !!:1 '.tcl')/$(basename !!:2 '.tcl')/g" !!:2
 
 ==========================
 高优先级待办
@@ -39,6 +41,8 @@ GUI:
 	demo文档回归覆盖，使用发布分支录制并传入发布分支：
 		cdc： cdc_202511
 		lint： 
+
+	（golden中未考虑新增的未知msgId，导致的失败case）GUI regolden: issue：#48717 --- done
 
 --------------------------
 QOR：

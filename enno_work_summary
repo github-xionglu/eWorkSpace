@@ -15,6 +15,13 @@ LPC
 	#47947 StratLshDirInconsistent
 	#47655 get_strategy
 
+英杰 case调研 ---- done，英杰代码bug，已反馈
+
+--------------------------
+MFP
+	set_timing_false_path 只使用-through时，未知错误
+		单path：~/work/mfp/test/FPBlackBoxBlockMainPath/1path  --- 不是bug，set_timing_false_path不支持hier instance
+		多path：/home/lxiong/branch/EnnocadProject/reg/mfp/cli/checker/FPBlackBoxBlockMainPath/multi-bbox-path/noid-FPBlackBoxBlockMainPath-multibboxpath-partialnobboxpath-constraint-multibboxpath-001.tcl（去掉约束中的-to）----  #48834：[MFP][FPBlackBoxBlockMainPath][set_timing_false_path] FPBlackBoxBlockMainPath is missing reported with multi-input and multi-output bbox --- new
 
 --------------------------
 压测
@@ -26,12 +33,6 @@ LPC
 	GUI 压测脚本
 	
 
---------------------------
-line number
-	对于instance的行号：
-	read_design的方式定位为instance示例化的行；
-	read_design -netlist的方式定位为instance实例化结束的行。
-
 
 --------------------------
 GUI:
@@ -42,21 +43,32 @@ GUI:
 		cdc： cdc_202511
 		lint： 
 
-	（golden中未考虑新增的未知msgId，导致的失败case）GUI regolden: issue：#48717 --- done
 
 --------------------------
 QOR：
 
 
 
+--------------------------
+邮件 《Re: How to use built-in performance tool in pwr》 调研并加入回归
+
+
 ==========================
 低优先级待办
+
+--------------------------
+line number
+	对于instance的行号：
+	read_design的方式定位为instance示例化的行；
+	read_design -netlist的方式定位为instance实例化结束的行。
+
+
 --------------------------
  DFT param随机性测试（康凯脚本）
 
 --------------------------
 get_fanin/fanout （1231之前需完成测试）
-	lpc #48065 master issue （2/17; 引申issue：0/0）
+	lpc #48065 master issue （2/17; 引申issue：0/0）---- 研发issue修改不玩12版本不发布
 
 	dft #48066 master issue （0/12; 引申issue：0/0）
 

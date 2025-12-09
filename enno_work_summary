@@ -11,24 +11,17 @@ LPC
 新增命令测试：
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
-新增checker测试：
-	#47947 StratLshDirInconsistent
-	#47655 get_strategy
-
-英杰 case调研 ---- done，英杰代码bug，已反馈
 
 --------------------------
-MFP
-	set_timing_false_path 只使用-through时，未知错误
-		单path：~/work/mfp/test/FPBlackBoxBlockMainPath/1path  --- 不是bug，set_timing_false_path不支持hier instance
-		多path：/home/lxiong/branch/EnnocadProject/reg/mfp/cli/checker/FPBlackBoxBlockMainPath/multi-bbox-path/noid-FPBlackBoxBlockMainPath-multibboxpath-partialnobboxpath-constraint-multibboxpath-001.tcl（去掉约束中的-to）----  #48834：[MFP][FPBlackBoxBlockMainPath][set_timing_false_path] FPBlackBoxBlockMainPath is missing reported with multi-input and multi-output bbox --- new
-
+TXM
+	
 --------------------------
 压测
 	增加重复次数
 		re-read （现场：重复remove-read十次，出现崩溃问题）
 		check （现场：重复check 100次，结果出现随机
 
+	save_session -> load_session -> save_session压力测试，PA现场出现crash问题
 	
 	GUI 压测脚本
 	
@@ -40,8 +33,8 @@ GUI:
 	非交付功能可以在后续工作中补充测试
 
 	demo文档回归覆盖，使用发布分支录制并传入发布分支：
-		cdc： cdc_202511
-		lint： 
+		cdc： release/cdc_202511
+		lint： release/lint_202512
 
 
 --------------------------
@@ -51,6 +44,17 @@ QOR：
 
 --------------------------
 邮件 《Re: How to use built-in performance tool in pwr》 调研并加入回归
+	已调查流程
+	回归思路：
+		1. 工具启动tcl脚本
+		2. 获取工具进程id
+		3. netstat -anp | grep <pid> 获取端口号
+		4. curl命令获取指定时间内的数据
+		5. pprof命令存储性能数据
+		6. 另写脚本proc解析svg数据存为golden和result
+		7. 对比golden和result
+	回归遇到难点：
+		1. 如何提前确定case的运行时间传递到curl命令
 
 
 ==========================

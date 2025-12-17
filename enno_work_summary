@@ -37,19 +37,15 @@ LPC
 新增命令测试：
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
+#9023：
+	basic checker：
+		message：
+			get_message_list：获取message is
+			get_message_template：获取message template
+			get_message_help：获取message 帮助信息
+	to split the cases
 
-upf连接符“-”调研：
-	1. create_power_domain: 报错IntentNotSimpleName
-	2. create_supply_net：报错IntentNotSimpleName
-	3. create_supply_port：报错IntentNotSimpleName
-	4. connect_supply_net：报错IntentNotSimpleName
-	5. create_supply_set：报错IntentNotSimpleName
-	6. add_power_state：报错IntentNotSimpleName
-	7. add_port_state: 不报错
-	8. set_isolation: 不报错
-	9. set_level_shifter: 不报错
-	10. create_power_switch: 报错IntentNotSimpleName
-	11. set_retention: 不报错
+
 
 --------------------------
 TXM
@@ -93,7 +89,7 @@ QOR：
 		6. 另写脚本proc解析svg数据存为golden和result
 		7. 对比golden和result
 	回归遇到难点：
-		1. 如何提前确定case的运行时间传递到curl命令
+		1. 如何提前确定case的运行时间传递到curl命令 ---- 吴平增加阶段控制，预计1月才有时间进行
 
 
 ==========================

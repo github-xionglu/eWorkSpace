@@ -37,15 +37,6 @@ LPC
 新增命令测试：
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
-#9023：
-	basic checker：
-		message：
-			get_message_list：获取message is
-			get_message_template：获取message template
-			get_message_help：获取message 帮助信息
-	to split the cases
-
-
 
 --------------------------
 TXM

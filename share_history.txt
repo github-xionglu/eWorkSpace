@@ -12,3 +12,9 @@
 
     1219:
         吴俊： get_fanin/fanout
+
+    1226周会安排分享：
+        家荣：mfp原理2
+        悦彬：verilog标准协议
+        黄冬：verilog基础
+        

@@ -47,8 +47,7 @@ TXM
 		re-read （现场：重复remove-read十次，出现崩溃问题）
 		check （现场：重复check 100次，结果出现随机
 
-	save_session -> load_session -> save_session压力测试，PA现场出现crash问题
-	
+
 	GUI 压测脚本
 	
 
@@ -135,7 +134,3 @@ get_fanin/fanout （1231之前需完成测试）
 	 5. The 3 source information should not be shown in any cases. ---- report_message不应该显示工具内部本身的source信息
 	
 
-==========================
-1205周会安排分享：
-	家荣：mfp原理
-	吴俊： get_fanin/fanout

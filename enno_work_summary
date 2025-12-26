@@ -40,6 +40,18 @@ LPC
 
 #2795：考虑加回归
 
+FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/base/license-multithreadlevel/16710-license-multithread-level0-001.tcl
+// 后续修改case，使用启用的license服务器，测试该功能，期望暂时保留
+ 
+FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/release_v1.1/command/set_libpath/basic_test/noid-setlibpath-001.tcl
+// set_libpath功能需求不清晰，功能实现问题，待RD优化功能后可以用来看护功能，期望暂时保留
+ 
+FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/release_v1.1/command/issue/issue-9777/9777-command-help-doc-rd0-001.tcl
+//测试 cmd -doc的已有reg/upf/basic-information-check/command/noid-checkcmd-doc-rd0-001.tcl，后续考虑保留关联html正确性检查或将其与basic检查合并，期望暂时保留
+1. 能弹出html文件
+2. 弹出的html为cmd同名的html
+
+
 
 
 --------------------------

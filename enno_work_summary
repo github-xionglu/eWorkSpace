@@ -40,12 +40,6 @@ LPC
 
 #2795：考虑加回归
 
-FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/base/license-multithreadlevel/16710-license-multithread-level0-001.tcl
-// 后续修改case，使用启用的license服务器，测试该功能，期望暂时保留
- 
-FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/release_v1.1/command/set_libpath/basic_test/noid-setlibpath-001.tcl
-// set_libpath功能需求不清晰，功能实现问题，待RD优化功能后可以用来看护功能，期望暂时保留
- 
 FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/release_v1.1/command/issue/issue-9777/9777-command-help-doc-rd0-001.tcl
 //测试 cmd -doc的已有reg/upf/basic-information-check/command/noid-checkcmd-doc-rd0-001.tcl，后续考虑保留关联html正确性检查或将其与basic检查合并，期望暂时保留
 1. 能弹出html文件
@@ -117,9 +111,19 @@ line number
 
 --------------------------
 get_fanin/fanout （1231之前需完成测试）
-	lpc #48065 master issue （2/17; 引申issue：0/0）---- 研发issue修改不玩12版本不发布
+	lpc #48065 master issue （11/17; 引申issue：0/0）---- 研发issue修改不玩12版本不发布
+		#48546: bbox 的pin会被认为inout，fanin时返回multi drive的path ---- 不影响#48041中的rd3的选项放入rd0
+		#48430: pg pin/net 报错信息不清晰 ---- 不影响#48041中的rd3的选项放入rd0
+		#48331：-trace_connectivity 需求不明确导致功能异常 - on_hold  ---- 不影响#48041中的rd3的选项放入rd0
+		#48312: -include_rs_arc 无参数值时未报错，RD认为是verific bool机制 ---- 功能实现没问题，不影响#48041中的rd3的选项放入rd0
+		#48221：-through与get_attributes结合出现attribute信息问题 ---- 返回结果不正确，影响-through使用体验，建议-through选项暂不放入rd0
 
-	dft #48066 master issue （0/12; 引申issue：0/0）
+
+	dft #48066 master issue （8/12; 引申issue：0/0）
+		#48389：get_fanout -on与get_attributes结合出现attribute信息问题 ---- 返回结果不正确，影响-through使用体验，建议-through选项暂不放入rd0
+		#48415：选项存在无效的参数值时，报错信息不合理 ---- 功能实现没问题，不影响#48041中的rd3的选项放入rd0
+		#48466：-include_rs_arc 无参数值时未报错，RD认为是verific bool机制 ---- 功能实现没问题，不影响#48041中的rd3的选项放入rd0
+		#48777：-tcl_list和-pin_list参数结合使用时，返回结果与只使用-pin_list参数时一致,-tcl_list参数未生效 ---- 基本功能实现没问题，不影响#48041中的rd3的选项放入rd0
 
 --------------------------
  get_hdl_info进行小测例提取功能 （1231之前需完成测试）
@@ -134,9 +138,14 @@ get_fanin/fanout （1231之前需完成测试）
 		dft #46464 master issue （get_hdl_info: 1/2; 引申issue：0/0） --- test done; #48702：grep_hdl --- todo
 
 			#46317: [EDFT][command][get_hdl_info]The obtained always block is incomplete --- close
-			#48458: [EDFT][get_hdl_info] When an invalid file path is specified for the option -output, the tool does not report an error and does not generate the corresponding Verilog file. --- mew
+			#48458: [EDFT][get_hdl_info] When an invalid file path is specified for the option -output, the tool does not report an error and does not generate the corresponding Verilog file. --- reopen
 
-
+grep_hdl功能测试 
+		lpc #48701 master issue （0/1; 引申issue：0/0）
+			#48715: [ELPC][grep_hdl]There is an error in the reported information. 异常测试报错信息不正确 --- new
+		
+		dft #48702 master issue （1/1; 引申issue：0/0）
+			#48713: [ELPC][grep_hdl]Command error: CMD-1016(CMD-1006). Missing line number information. 异常测试报错信息不正确 --- new
 
 --------------------------
  cmd阶段可用性回归测例（rd0）

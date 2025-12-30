@@ -38,7 +38,6 @@ LPC
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
 
-#2795：考虑加回归
 
 FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/release_v1.1/command/issue/issue-9777/9777-command-help-doc-rd0-001.tcl
 //测试 cmd -doc的已有reg/upf/basic-information-check/command/noid-checkcmd-doc-rd0-001.tcl，后续考虑保留关联html正确性检查或将其与basic检查合并，期望暂时保留
@@ -60,7 +59,7 @@ TXM
 
 	GUI 压测脚本
 
-	from #47537, 增加多线程压测流程：
+	from #47537, 增加多线程压测流程：-------- LPC有多线程的回归任务，无需额外增加多线程压测
 		关注crash问题
 		关注结果与单线程结果一致性问题
 	

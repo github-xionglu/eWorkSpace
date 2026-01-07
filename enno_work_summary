@@ -45,6 +45,13 @@ FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/rele
 2. 弹出的html为cmd同名的html
 
 
+2507+ AE issues 37/49 (其中35个closed issues为202512版本已验证的，10个为新计划修复并进入release/lpc_202512分支的，4个为reopen状态的为202512版本reopen的)
+	total 49
+	RD 8
+	developed 0
+	reopened 4
+	closed 37
+
 
 
 --------------------------
@@ -59,16 +66,18 @@ TXM
 
 	GUI 压测脚本
 
-	from #47537, 增加多线程压测流程：-------- LPC有多线程的回归任务，无需额外增加多线程压测
-		关注crash问题
-		关注结果与单线程结果一致性问题
-	
+
+--------------------------
+Basic information check回归 --- done
+	新增命令测试：标准sdc约束支持
+		puts $::sdcNS::replaceRules
+
 
 
 --------------------------
 GUI:
 	1115之前我们将交付需求的功能在lint中做一轮测试 ---- 1114前已完成
-	非交付功能可以在后续工作中补充测试
+	非交付功能可以在后续工作中补充测试 ---- 30%
 
 	demo文档回归覆盖，使用发布分支录制并传入发布分支：
 		cdc： release/cdc_202511

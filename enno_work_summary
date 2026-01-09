@@ -32,10 +32,14 @@
 ==========================
 高优先级待办
 
+2025年总结和2026年计划，
+
 --------------------------
 LPC
 新增命令测试：
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
+
+ save_data: 可以实现保存为sdb格式的文件
 
 
 
@@ -68,10 +72,8 @@ TXM
 
 
 --------------------------
-Basic information check回归 --- done
-	新增命令测试：标准sdc约束支持
-		puts $::sdcNS::replaceRules
-
+Basic information check：
+	将get_message_list -violation_msg回归
 
 
 --------------------------
@@ -86,7 +88,9 @@ GUI:
 
 --------------------------
 QOR：
-
+	qor big01，release分支上昨天结果中发现IntentPinHasMultiDrivers有改变，但是develop分支上没有
+		FOM 相比 NON-FOM，容器内元素的顺序可能变化，内部综合的instance 名可能变化
+		qor的golden现在是在一个公共目录下，现在的case没办法支持不同的golden，只能改case逻辑才能支持，如果是这个原因的话我们后面再考虑修改case去做适配吧 
 
 
 --------------------------

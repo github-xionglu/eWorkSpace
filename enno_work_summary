@@ -32,15 +32,12 @@
 ==========================
 高优先级待办
 
-2025年总结和2026年计划，
-
 --------------------------
 LPC
 新增命令测试：
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
 
  save_data: 可以实现保存为sdb格式的文件
-
 
 
 FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/release_v1.1/command/issue/issue-9777/9777-command-help-doc-rd0-001.tcl
@@ -70,6 +67,7 @@ TXM
 
 	GUI 压测脚本
 
+	DFT check压测存在一个对比失败，待确认 ---- 已反馈
 
 --------------------------
 Basic information check：
@@ -105,7 +103,7 @@ QOR：
 		6. 另写脚本proc解析svg数据存为golden和result
 		7. 对比golden和result
 	回归遇到难点：
-		1. 如何提前确定case的运行时间传递到curl命令 ---- 吴平增加阶段控制，预计1月才有时间进行
+		1. 如何提前确定case的运行时间传递到curl命令 ---- 吴平增加阶段控制，预计1月才有时间进行 -- #49913
 
 
 ==========================
@@ -174,4 +172,13 @@ grep_hdl功能测试
 	 4. The log files also show un-needed EchoCommand and repeated copyright messages (it should show EchoCommand but not copyright messages) ---- 日志中report_message不应该显示版本信息，日志中report_message不应该显示工具内部本身的source信息，日志中启动工具时应该显示版本信息和工具内部本身的source信息
 	 5. The 3 source information should not be shown in any cases. ---- report_message不应该显示工具内部本身的source信息
 	
+
+
+--------------------------
+统计AE提的真实bug的issue量和PV内部issue的比例情况：
+	真实bug不包括：
+		1. 需求变更
+		2. 使用方法问题
+		等
+
 

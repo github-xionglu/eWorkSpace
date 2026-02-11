@@ -19,6 +19,7 @@
     1231：
         黄冬：verilog基础
 
+2026年：
     0109：
         悦彬：verilog标准协议
 
@@ -34,9 +35,69 @@
                 脚本自动化 基础1.5 5.6~9
                 数字电路 基础 10~11
                 verilog 基础 11~12
-        吴俊，黄冬，家荣 bbox 测试
+        黄冬，家荣 bbox 测试
 
     0130：
-        悦彬：verilog标准协议2
-        燕宁：awk grep命令
-        
+        测试方法：
+        https://cloud.tencent.com/developer/article/2153362
+
+        get_instances命令和等价类划分法测试思维分享 ---- 家荣
+        等价类划分法 参考文章：
+        https://blog.csdn.net/weixin_42788944/article/details/147029785
+        https://blog.csdn.net/qq_73332379/article/details/141611913?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-2-141611913-blog-147029785.235%5Ev43%5Epc_blog_bottom_relevance_base9&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-2-141611913-blog-147029785.235%5Ev43%5Epc_blog_bottom_relevance_base9&utm_relevant_index=3
+
+    0206：
+        config_message命令和边界值测试方法测试思维分享 ----
+    
+    0213：
+
+    0227：
+        决策表法
+
+
+    0306：
+        状态转换法
+
+    0313：
+        正交试验法
+
+
+    0320：
+        错误推测法
+
+    0327：
+        场景法
+
+    0403：
+        因果图法
+
+    0410：
+        https://blog.csdn.net/weixin_42788944/article/details/147002632?spm=1001.2014.3001.5502
+        方法总结：
+            需求特点            推荐方法
+            明确输入范围        等价类+边界值
+            多条件组合          决策表/因果图
+            状态流转业务        状态转换法
+            参数组合爆炸        正交试验法
+            用户业务流程        场景法
+            历史缺陷高发区      错误推测法
+
+        最佳实践建议
+            1. 混合使用：通常需要组合2-3种方法（如：等价类+边界值+错误推测）
+            2. 分层设计：
+                测试用例分层 
+                    "基础功能验证" : 40
+                    "异常场景测试" : 30
+                    "性能/安全测试" : 20
+                    "兼容性测试" : 10
+            3. 自动化适配：为自动化测试设计原子化、参数化的用例
+            4. 持续优化：根据缺陷分析反哺用例库（如补充遗漏的边界值）
+
+            通过系统化应用这些方法，测试团队可构建出高覆盖、高效率的测试用例体系，典型实施效果：
+                • 需求覆盖率提升至95%+
+                • 缺陷逃逸率降低60%
+                • 回归测试时间缩短40%
+
+    0417：
+
+    0424：

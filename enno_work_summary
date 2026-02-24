@@ -46,15 +46,6 @@ FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/rele
 2. 弹出的html为cmd同名的html
 
 
-2507+ AE issues 37/49 (其中35个closed issues为202512版本已验证的，10个为新计划修复并进入release/lpc_202512分支的，4个为reopen状态的为202512版本reopen的)
-	total 49
-	RD 8
-	developed 0
-	reopened 4
-	closed 37
-
-
-
 --------------------------
 TXM
 	
@@ -67,7 +58,6 @@ TXM
 
 	GUI 压测脚本
 
-	DFT check压测存在一个对比失败，待确认 ---- 已反馈
 
 --------------------------
 Basic information check：
@@ -79,16 +69,10 @@ GUI:
 	1115之前我们将交付需求的功能在lint中做一轮测试 ---- 1114前已完成
 	非交付功能可以在后续工作中补充测试 ---- 30%
 
-	demo文档回归覆盖，使用发布分支录制并传入发布分支：
-		cdc： release/cdc_202511
-		lint： release/lint_202512
-
 
 --------------------------
 QOR：
-	qor big01，release分支上昨天结果中发现IntentPinHasMultiDrivers有改变，但是develop分支上没有
-		FOM 相比 NON-FOM，容器内元素的顺序可能变化，内部综合的instance 名可能变化
-		qor的golden现在是在一个公共目录下，现在的case没办法支持不同的golden，只能改case逻辑才能支持，如果是这个原因的话我们后面再考虑修改case去做适配吧 
+	
 
 
 --------------------------
@@ -126,23 +110,9 @@ get_fanin/fanout （1231之前需完成测试）
 		#48777：-tcl_list和-pin_list参数结合使用时，返回结果与只使用-pin_list参数时一致,-tcl_list参数未生效 ---- 基本功能实现没问题，不影响#48041中的rd3的选项放入rd0
 
 --------------------------
- get_hdl_info进行小测例提取功能 （1231之前需完成测试）
-	#41582： Port get_hdl/get_hdl_info to all products
-		lpc #46463 master issue （get_hdl_info: 1/1; 引申issue：2/3） --- done; #48701： grep_hdl --- todo
-
-			#46304: [ELPC][GUI]clicking on the Verilog files in the Source Viewer will cause the GUI to become sluggish --- close
-			#46306: [ELPC][command][get_attributes]Error in obtaining the instance line number ---- new
-			#46328: [ELPC][command][get_hdl_info]The result returned by get_hdl_info is empty ---- close
-			#46381: [ELPC][GUI]After executing "check_upf" in gui, the "Violation_Tree" did not get updated ---- close
-
-		dft #46464 master issue （get_hdl_info: 1/2; 引申issue：0/0） --- test done; #48702：grep_hdl --- todo
-
-			#46317: [EDFT][command][get_hdl_info]The obtained always block is incomplete --- close
-			#48458: [EDFT][get_hdl_info] When an invalid file path is specified for the option -output, the tool does not report an error and does not generate the corresponding Verilog file. --- reopen
-
 grep_hdl功能测试 
 		lpc #48701 master issue （0/1; 引申issue：0/0）
-			#48715: [ELPC][grep_hdl]There is an error in the reported information. 异常测试报错信息不正确 --- new
+			#48715: [ELPC][grep_hdl]There is an error in the reported information. 异常测试报错信息不正确 --- close
 		
 		dft #48702 master issue （1/1; 引申issue：0/0）
 			#48713: [ELPC][grep_hdl]Command error: CMD-1016(CMD-1006). Missing line number information. 异常测试报错信息不正确 --- new
@@ -172,8 +142,3 @@ grep_hdl功能测试
 		等
 
 
-===========================
-2026春节请假情况：
-	燕宁：2月13日 --- 已提交
-	家荣：2月13日
-	吴俊：2月24日

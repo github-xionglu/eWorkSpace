@@ -47,29 +47,27 @@
         https://blog.csdn.net/qq_73332379/article/details/141611913?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-2-141611913-blog-147029785.235%5Ev43%5Epc_blog_bottom_relevance_base9&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogOpenSearchComplete%7ERate-2-141611913-blog-147029785.235%5Ev43%5Epc_blog_bottom_relevance_base9&utm_relevant_index=3
 
     0206：
-        config_message命令和边界值测试方法测试思维分享 ----
+        config_message命令和边界值测试方法测试思维分享 ---- 悦彬
     
-    0213：
-
     0227：
         决策表法
 
 
     0306：
-        状态转换法
+        因果图法
 
     0313：
         正交试验法
 
 
     0320：
+        场景法
+        
+    0327：
         错误推测法
 
-    0327：
-        场景法
-
     0403：
-        因果图法
+        状态转换法
 
     0410：
         https://blog.csdn.net/weixin_42788944/article/details/147002632?spm=1001.2014.3001.5502

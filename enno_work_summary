@@ -33,6 +33,9 @@
 高优先级待办
 
 --------------------------
+bsub讨论，联系禹童，确认时间后，与邱总一起确认bsub问题原因
+
+--------------------------
 LPC
 新增命令测试：
  analyze_design, elaborate_design, save_data, restore_data, set_libpath
@@ -45,7 +48,8 @@ FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/rele
 1. 能弹出html文件
 2. 弹出的html为cmd同名的html
 
-蒋旺-多线程监控脚本异常问题，待调查
+
+#52059：创建nemo connect_supply_net相关upf复现问题
 
 
 --------------------------
@@ -79,6 +83,10 @@ QOR：
 --------------------------
 邮件 《Re: How to use built-in performance tool in pwr》 调研并加入回归
 	get_cpu_perf回归，kill -60
+
+2026-03-23：get_cpu_perf -> get_perf -cpu, 并增加-mem选项：
+	----- 吴平：0403之前支持mem
+	----- 钟浩：待吴平支持后实现
 
 
 ==========================

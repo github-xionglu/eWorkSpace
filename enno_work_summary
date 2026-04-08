@@ -32,6 +32,12 @@
 ==========================
 高优先级待办
 
+COMMON：
+--------------------------
+4/10下班前提交All-hands名单：
+	PA：
+		锐意进取奖：沙龙同学在本季度出色地完成了waste toggle，report_sequential_enable -diagnostic, ungroup -operator -constrained, read_vcd等features的测试，发现近40个issues，他丰富后的RPA weekly run script发现了多个compute_power 阶段新型crash issues 8个，他针对rpa qor的每天的变动，及时地找出了正确的commit，并初步完成了较深入的分析，找到了根因，钻研verific的行为，构造出了不常见的operators，个人能力得到了很大的提升。他在测试任务中，带领两位新同学快速入手，展现出了很强的责任心。
+
 --------------------------
 利用信号在运行时debug，现在提供两种方式在软件运行时进行Debug：
 	1.	通过 kill -12 <pid> 立即打印当前堆栈且不影响正常运行。
@@ -51,12 +57,24 @@ FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/rele
 2. 弹出的html为cmd同名的html
 
 
-#52059：创建nemo connect_supply_net相关upf复现问题
+DW参数db.enable_dw测试 --- LPC 4/3完成测试
 
+--------------------------
+DFT
+	DW参数db.enable_dw测试
 
 --------------------------
 TXM
-	
+	DW参数db.enable_dw测试
+
+
+
+--------------------------
+GUI:
+	#49210: PWR GUI Schematic中增加对象属性的定制化函数 ---- 悦彬
+
+
+
 --------------------------
 压测
 	增加重复次数
@@ -66,20 +84,13 @@ TXM
 
 	GUI 压测脚本
 
+--------------------------
+QOR：
 
 --------------------------
 Basic information check：
 	将get_message_list -violation_msg回归
 
-
---------------------------
-GUI:
-	#49210: PWR GUI Schematic中增加对象属性的定制化函数 ---- 悦彬
-
-
---------------------------
-QOR：
-	
 
 
 --------------------------
@@ -88,6 +99,20 @@ QOR：
 
 2026-03-23：get_cpu_perf -> get_perf -cpu, 并增加-mem选项：
 	----- 吴平：0403之前支持mem
+		set env(HEAP-PROFILE) "/tmp/profile1"
+		exec kill -61 [pid]
+		read_design xxxxxx
+		exec kill -61 [pid]
+
+		set env(HEAP-PROFILE) "/tmp/profile2"
+		exec kill -61 [pid]
+		read_upf xxxxxx
+		exec kill -61 [pid]
+
+		问题：
+			1. 小case捕获不到内存信息
+			2. 大case性能影响过大，a72 rtl 150s的read_library -> 2h:30min; read_design: 4/1 16:56:31
+			3. 大case生成的profile文件很多无主文件生成，导致pprof错误
 	----- 钟浩：待吴平支持后实现
 
 

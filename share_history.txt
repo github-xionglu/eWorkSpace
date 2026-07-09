@@ -64,12 +64,11 @@
         场景法   ---- 燕宁
         
     0327：
-        错误推测法
+        错误推测法  ---- 悦彬
 
     0403：
-        状态转换法
-
-    0410：
+        案例分享 ---- 燕宁 黄冬 悦彬
+        
         https://blog.csdn.net/weixin_42788944/article/details/147002632?spm=1001.2014.3001.5502
         方法总结：
             需求特点            推荐方法
@@ -96,6 +95,48 @@
                 • 缺陷逃逸率降低60%
                 • 回归测试时间缩短40%
 
-    0417：
+    0410： ---- 吴俊 家荣
+        
 
-    0424：
+    0417： ---- 熊路
+
+
+    0508：issue规范讲解与讨论 --- 熊路
+
+    0515：测试方法分享demo ---- 燕宁
+
+    0522：
+
+    0529：tclsh 实例练习与分享 6个，后面python shell 4个：
+        1. 平时工作可能用到的，难度中等偏上
+            脚本 -produce lpc -cace big01 -days 7 -stage read_design -version fom -runtime -memory (统计lpc big01 read_design阶段7天内的平均runtime和memory)
+            格式：
+                date runtime memory ...
+                5/1  150s    2GB    ...
+                5/2  160s    2.5GB  ...
+                5.3  140s    1.8GB  ...
+                ...
+            总结变化趋势和异常等 --all
+
+
+    0605:      查找包含message文件，并交互进入指定目录
+
+    0612:     tclsh 分析qor message失败出现的开始时间
+
+
+    0626:    批量检查库上回归fom版本与非fom版本的结果差异，并根据差异类型分类存在差异的case，如何快速分别制作golden IsFom
+
+    ----
+    统计：
+
+    0703:    通用，批量regolden脚本，增加交互性
+
+    0710：    etool实现
+
+    0717：    
+
+    0724：   
+
+
+
+

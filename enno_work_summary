@@ -33,10 +33,6 @@
 高优先级待办
 
 COMMON：
---------------------------
-4/10下班前提交All-hands名单：
-	PA：
-		锐意进取奖：沙龙同学在本季度出色地完成了waste toggle，report_sequential_enable -diagnostic, ungroup -operator -constrained, read_vcd等features的测试，发现近40个issues，他丰富后的RPA weekly run script发现了多个compute_power 阶段新型crash issues 8个，他针对rpa qor的每天的变动，及时地找出了正确的commit，并初步完成了较深入的分析，找到了根因，钻研verific的行为，构造出了不常见的operators，个人能力得到了很大的提升。他在测试任务中，带领两位新同学快速入手，展现出了很强的责任心。
 
 --------------------------
 利用信号在运行时debug，现在提供两种方式在软件运行时进行Debug：
@@ -57,7 +53,6 @@ FAILED: /mnt/efs/fs1/jenkins/build_lpc/2025-12-23-06/EnnocadProject/reg/upf/rele
 2. 弹出的html为cmd同名的html
 
 
-DW参数db.enable_dw测试 --- LPC 4/3完成测试
 
 --------------------------
 DFT
@@ -109,11 +104,21 @@ Basic information check：
 		read_upf xxxxxx
 		exec kill -61 [pid]
 
+		exec [file dirname [info nameofexecutable]]/../resource/pprof --line --svg [info nameofexecutable] /tmp/profile > abc.svg
+
 		问题：
 			1. 小case捕获不到内存信息
 			2. 大case性能影响过大，a72 rtl 150s的read_library -> 2h:30min; read_design: 4/1 16:56:31
 			3. 大case生成的profile文件很多无主文件生成，导致pprof错误
 	----- 钟浩：待吴平支持后实现
+
+1. 小case捕获不到内存信息
+2. 大case性能影响过大，a72 rtl 150s的read_library -> 2h:30min; read_design: 4/1 16:56:31
+3. 大case生成的profile文件很多无主文件生成，导致pprof错误
+
+4. 康哥提到栈里面始终存在utHotSpotService::RunServe，期望增加参数控制，能否支持
+
+和李博对齐，仍然期望支持mem，在另一个工具中执行-start开始，-stop停止，只采集这一段时间的性能数据，不用再同一个工具中完成整个阶段的采集。这样采集期间性能花销增大，采集完成后不会有性能花销，且不受单个阶段的性能影响。
 
 
 ==========================
@@ -182,6 +187,6 @@ grep_hdl功能测试
 	1. 本周工作总结汇报以及下周测试计划
 	2. 易用性问题和耗时问题讨论
 	3. 团队公共事宜汇报与讨论
-	4. 团队培训知识分享与讨论
-	5. 专项答疑
+	4. 专项答疑
+	5. 团队培训知识分享与讨论
 	6. 

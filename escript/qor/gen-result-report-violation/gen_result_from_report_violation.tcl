@@ -196,7 +196,7 @@ namespace eval __GEN_RESULT_FLOW__ {
                             incr file_index
                             set msg_file_name "${file_name}-${k}-${file_index}${file_exp}"
                             set msg_file "${file_dir}/${msg_file_name}"
-                            puts ${fo} "source \${golden_path}/${msg_file}"
+                            puts ${fo} "source \${golden_path}/${msg_file_name}"
 
                             if { [file exists ${msg_file}] } { file delete ${msg_file} }
                             set msg_fo [open ${msg_file} "w"]
@@ -226,6 +226,8 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts "选项:"
         puts "  -resultDict <dict>  实际字典内容 (默认 {})"
         puts "  -expectedDict <dict>  期望字典内容 (默认 {})"
+        puts "  -resultDictName <varName>   实际字典的变量名 (按名引用, 大字典必须用它, 避免值经过命令行/字符串化)"
+        puts "  -expectedDictName <varName> 期望字典的变量名 (同上; *DictName 优先级高于 *Dict)"
         puts "  -csvFile <csvFile>  csv文件路径 (默认 compare_messages_result.csv)"
         puts "  -ignoreMsgIds <list>  忽略的msgId列表 (默认 {})"
         puts "  -ignoreFalseReport  忽略false report (默认 false)"
@@ -235,17 +237,28 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts ""
         puts "示例:"
         puts "  set flag \[__compare_messages_dict__ -resultDict \$resultDict -expectedDict \$expectedDict -csvFile compare_messages_result.csv\]"
+        puts "  set flag \[__compare_messages_dict__ -resultDictName resultDict -expectedDictName expectedDict -csvFile compare_messages_result.csv\]  ;# 大字典推荐用法"
         puts "  if { \$flag } { puts \"compare success\" } else { puts \"compare fail\" }"
         puts ""
     }
     proc __compare_messages_dict__ {args} {
         set defValDict [dict create]
         set defKeyDict [dict create -help 0 -ignoreFalseReport 0]
-        set defKeyValDict [dict create -resultDict {} -expectedDict {} -csvFile "compare_messages_result.csv" -ignoreMsgIds {}]
+        set defKeyValDict [dict create -resultDict {} -expectedDict {} -resultDictName {} -expectedDictName {} -csvFile "compare_messages_result.csv" -ignoreMsgIds {}]
         optParse $defValDict $defKeyDict $defKeyValDict __compare_messages_dict_usage__ $args
 
         if { ${-help} } { __compare_messages_dict_usage__; __report_message__ "help mode, return" -debug; return }
-        __report_message__ "resultDict: ${-resultDict}, expectedDict: ${-expectedDict}, csvFile: ${-csvFile}, ignoreMsgIds: ${-ignoreMsgIds}" -debug
+
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-resultDictName} ne "" } {
+            unset {-resultDict}
+            upvar 1 ${-resultDictName} {-resultDict}
+        }
+        if { ${-expectedDictName} ne "" } {
+            unset {-expectedDict}
+            upvar 1 ${-expectedDictName} {-expectedDict}
+        }
+        __report_message__ "resultDict size: [dict size ${-resultDict}], expectedDict size: [dict size ${-expectedDict}], csvFile: ${-csvFile}, ignoreMsgIds: ${-ignoreMsgIds}" -debug
 
         set flag 1
         set openFile [open ${-csvFile} "w"]
@@ -316,6 +329,8 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts "选项:"
         puts "  -resultDict <dict>    实际字典内容 (默认 {})"
         puts "  -expectedDict <dict>  期望字典内容 (默认 {})"
+        puts "  -resultDictName <varName>   实际字典的变量名 (按名引用, 大字典必须用它; *DictName 优先级高于 *Dict)"
+        puts "  -expectedDictName <varName> 期望字典的变量名 (同上)"
         puts "  -csvFile <csvFile>    csv文件路径 (默认 compare_message_times_result.csv)"
         puts "  -ignoreMsgIds <list>  忽略的msgId列表 (默认 {})"
         puts "  -ignoreFalseReport    忽略false report (默认 false)"
@@ -328,17 +343,28 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts ""
         puts "示例:"
         puts "  set changes \[__compare_message_times_dict__ -resultDict \$resultDict -expectedDict \$expectedDict -csvFile compare_message_times_result.csv -ignoreMsgIds {msg1 msg2}\]"
+        puts "  set changes \[__compare_message_times_dict__ -resultDictName resultDict -expectedDictName expectedDict -csvFile compare_message_times_result.csv\]  ;# 大字典推荐用法"
         puts "  if { [dict get \$changes flag] } { puts \"compare success\" } else { puts \"compare fail\" }"
         puts ""
     }
     proc __compare_message_times_dict__ {args} {
         set defValDict [dict create]
         set defKeyDict [dict create -help 0 -ignoreFalseReport 0 -nonTrackChanges 0]
-        set defKeyValDict [dict create -resultDict {} -expectedDict {} -csvFile "compare_message_times_result.csv" -ignoreMsgIds {}]
+        set defKeyValDict [dict create -resultDict {} -expectedDict {} -resultDictName {} -expectedDictName {} -csvFile "compare_message_times_result.csv" -ignoreMsgIds {}]
         optParse $defValDict $defKeyDict $defKeyValDict __compare_message_times_dict_usage__ $args
 
         if { ${-help} } { __compare_message_times_dict_usage__; __report_message__ "help mode, return" -debug; return }
-        __report_message__ "resultDict: ${-resultDict}, expectedDict: ${-expectedDict}, csvFile: ${-csvFile}, ignoreMsgIds: ${-ignoreMsgIds}, nonTrackChanges: ${-nonTrackChanges}" -debug
+
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-resultDictName} ne "" } {
+            unset {-resultDict}
+            upvar 1 ${-resultDictName} {-resultDict}
+        }
+        if { ${-expectedDictName} ne "" } {
+            unset {-expectedDict}
+            upvar 1 ${-expectedDictName} {-expectedDict}
+        }
+        __report_message__ "resultDict size: [dict size ${-resultDict}], expectedDict size: [dict size ${-expectedDict}], csvFile: ${-csvFile}, ignoreMsgIds: ${-ignoreMsgIds}, nonTrackChanges: ${-nonTrackChanges}" -debug
 
         set flag 1
         set openFile [open ${-csvFile} "w"]
@@ -646,6 +672,8 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts "选项:"
         puts "  -resultDict <dict>    实际字典内容 (默认 {})"
         puts "  -expectedDict <dict>  期望字典内容 (默认 {})"
+        puts "  -resultDictName <varName>   实际字典的变量名 (按名引用, 大字典必须用它; *DictName 优先级高于 *Dict)"
+        puts "  -expectedDictName <varName> 期望字典的变量名 (同上)"
         puts "  -csvFile <file>      输出csv文件 (默认 compare_command_result.csv)"
         puts "  -nonTrackChanges     是否不记录变化 (默认 false)"
         puts "  -help                打印此用法说明"
@@ -660,11 +688,21 @@ namespace eval __GEN_RESULT_FLOW__ {
         __report_message__ "[__print_date__] Start to [lindex [info level 0] 0]..."
         set defValDict [dict create]
         set defKeyDict [dict create -help 0 -nonTrackChanges 0]
-        set defKeyValDict [dict create -resultDict {} -expectedDict {} -csvFile "compare_command_result.csv"]
+        set defKeyValDict [dict create -resultDict {} -expectedDict {} -resultDictName {} -expectedDictName {} -csvFile "compare_command_result.csv"]
         optParse $defValDict $defKeyDict $defKeyValDict __compare_command_result_dict_usage__ $args
 
         if { ${-help} } { __compare_command_result_dict_usage__; __report_message__ "help mode, return" -debug; return }
-        __report_message__ "resultDict: ${-resultDict}\nexpectedDict: ${-expectedDict}\ncsvFile: ${-csvFile}" -debug
+
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-resultDictName} ne "" } {
+            unset {-resultDict}
+            upvar 1 ${-resultDictName} {-resultDict}
+        }
+        if { ${-expectedDictName} ne "" } {
+            unset {-expectedDict}
+            upvar 1 ${-expectedDictName} {-expectedDict}
+        }
+        __report_message__ "resultDict size: [dict size ${-resultDict}], expectedDict size: [dict size ${-expectedDict}], csvFile: ${-csvFile}" -debug
 
         set flag 1
         set failedCommands [dict create]

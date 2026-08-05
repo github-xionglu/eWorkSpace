@@ -127,7 +127,7 @@ namespace eval __GEN_RESULT_FLOW__ {
             }
         }
         set resultDict [dict create messagesDict ${messagesDict} messageTimesDict ${msgTimesDict}]
-        __report_message__ "resultDict: ${resultDict}" -debug
+        __report_message__ "resultDict size: [dict size ${resultDict}]" -debug
 
         return ${resultDict}
     }
@@ -138,8 +138,9 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts "用法: __gen_dict_result_file__ ?选项...?"
         puts ""
         puts "选项:"
-        puts "  -dictName <dictName>  字典名称 (默认 tmpResultDictName)"
+        puts "  -dictName <dictName>  字典名称(输出文件中的变量名, 默认 tmpResultDictName)"
         puts "  -dict <dict>        字典内容 (默认 {})"
+        puts "  -dictVarName <varName>  字典内容的变量名 (按名引用, 大字典必须用它, 避免值经过命令行/字符串化; *DictVarName 优先级高于 -dict)"
         puts "  -filePath <filePath>  文件路径 (默认 tmpResultDictFile.tcl)"
         puts "  -help               打印此用法说明"
         puts "  -toSplitMsgId       是否按 msgId 分割文件 (默认不分割)"
@@ -155,12 +156,17 @@ namespace eval __GEN_RESULT_FLOW__ {
         __report_message__ "[__print_date__] Start to [lindex [info level 0] 0]..."
         set defValDict [dict create]
         set defKeyDict [dict create -help 0 -toSplitMsgId 0 -toSplitMsg 0]
-        set defKeyValDict [dict create -dictName "tmpResultDictName" -dict {} -filePath "tmpResultDictFile.tcl"]
+        set defKeyValDict [dict create -dictName "tmpResultDictName" -dict {} -dictVarName {} -filePath "tmpResultDictFile.tcl"]
         optParse $defValDict $defKeyDict $defKeyValDict __gen_dict_result_file_usage__ $args
 
         if { ${-help} } { __gen_dict_result_file_usage__; __report_message__ "help mode, return" -debug; return }
 
-        __report_message__ "dictName: ${-dictName}, dict: ${-dict}, filePath: ${-filePath}" -debug
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-dictVarName} ne "" } {
+            unset {-dict}
+            upvar 1 ${-dictVarName} {-dict}
+        }
+        __report_message__ "dictName: ${-dictName}, dict size: [dict size ${-dict}], filePath: ${-filePath}" -debug
 
         __backup_file__ ${-filePath}
 
@@ -451,7 +457,9 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts ""
         puts "选项:"
         puts "  <changesDict>        消息次数变化字典 (默认 {})"
+        puts "  -changesDictName <varName>  消息次数变化字典的变量名 (按名引用, 大字典必须用它; 优先级高于 <changesDict>)"
         puts "  -lastError <dict>    上一次比较结果字典 (默认 {})"
+        puts "  -lastErrorName <varName>  上一次比较结果字典的变量名 (按名引用; 优先级高于 -lastError)"
         puts "  -help                 打印此用法说明"
         puts ""
         puts "返回值: 格式化后的字符串"
@@ -460,12 +468,22 @@ namespace eval __GEN_RESULT_FLOW__ {
     proc __format_msg_times_changes_to_string__ {args} {
         set defValDict [dict create changesDict {}]
         set defKeyDict [dict create -help 0 ]
-        set defKeyValDict [dict create -lastError {}]
+        set defKeyValDict [dict create -lastError {} -changesDictName {} -lastErrorName {}]
         optParse $defValDict $defKeyDict $defKeyValDict __format_msg_times_changes_to_string_usage__ $args
 
 
         if { ${-help} } { __format_msg_times_changes_to_string_usage__; __report_message__ "help mode, return" -debug; return }
-        __report_message__ "changesDict: ${changesDict}, lastError: ${-lastError}" -debug
+
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-changesDictName} ne "" } {
+            unset changesDict
+            upvar 1 ${-changesDictName} changesDict
+        }
+        if { ${-lastErrorName} ne "" } {
+            unset {-lastError}
+            upvar 1 ${-lastErrorName} {-lastError}
+        }
+        __report_message__ "changesDict size: [dict size ${changesDict}], lastError size: [dict size ${-lastError}]" -debug
 
         set result ""
         proc __filter_changed_dict__ {current_dict last_dict category} {
@@ -495,7 +513,7 @@ namespace eval __GEN_RESULT_FLOW__ {
         } else {
             set changed_dict [dict create]
         }
-        __report_message__ "In proc [lindex [info level 0] 0], changed_dict: ${changed_dict}" -debug
+        __report_message__ "In proc [lindex [info level 0] 0], changed_dict size: [dict size ${changed_dict}]" -debug
         set changed_dict [__filter_changed_dict__ ${changed_dict} ${-lastError} changed]
         set changed_dict_size [dict size ${changed_dict}]
         if { ${changed_dict_size} > 0 } {
@@ -506,7 +524,7 @@ namespace eval __GEN_RESULT_FLOW__ {
         }
 
         set new_dict [dict get ${-changesDict} new]
-        __report_message__ "In proc [lindex [info level 0] 0], new_dict: ${new_dict}" -debug
+        __report_message__ "In proc [lindex [info level 0] 0], new_dict size: [dict size ${new_dict}]" -debug
         set new_dict [__filter_changed_dict__ ${new_dict} ${-lastError} new]
         set new_dict_size [dict size ${new_dict}]
         if { ${new_dict_size} > 0 } {
@@ -517,7 +535,7 @@ namespace eval __GEN_RESULT_FLOW__ {
         }
 
         set missing_dict [dict get ${-changesDict} missing]
-        __report_message__ "In proc [lindex [info level 0] 0], missing_dict: ${missing_dict}" -debug
+        __report_message__ "In proc [lindex [info level 0] 0], missing_dict size: [dict size ${missing_dict}]" -debug
         set missing_dict [__filter_changed_dict__ ${missing_dict} ${-lastError} missing]
         set missing_dict_size [dict size ${missing_dict}]
         if { ${missing_dict_size} > 0 } {
@@ -527,7 +545,7 @@ namespace eval __GEN_RESULT_FLOW__ {
             }
         }
 
-        __report_message__ "In proc [lindex [info level 0] 0], result: ${result}" -debug
+        __report_message__ "In proc [lindex [info level 0] 0], result length: [string length ${result}]" -debug
         return ${result}
     }
 
@@ -538,6 +556,7 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts ""
         puts "选项:"
         puts "  <testCmdDict>        命令执行字典 (默认 {})"
+        puts "  -testCmdDictName <varName>  命令执行字典的变量名 (按名引用, 大字典必须用它; 优先级高于 <testCmdDict>)"
         puts "  -performance         是否性能测试 (默认 false)"
         puts "  -help                打印此用法说明"
         puts ""
@@ -551,11 +570,17 @@ namespace eval __GEN_RESULT_FLOW__ {
         __report_message__ "[__print_date__] Start to [lindex [info level 0] 0]..."
         set defValDict [dict create testCmdDict {}]
         set defKeyDict [dict create -help 0 -performance 0]
-        set defKeyValDict [dict create]
+        set defKeyValDict [dict create -testCmdDictName {}]
         optParse $defValDict $defKeyDict $defKeyValDict __gen_command_result_dict_usage__ $args
 
         if { ${-help} } { __gen_command_result_dict_usage__; __report_message__ "help mode, return" -debug; return }
-        __report_message__ "testCmdDict: ${testCmdDict}, performance: ${-performance}" -debug
+
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-testCmdDictName} ne "" } {
+            unset testCmdDict
+            upvar 1 ${-testCmdDictName} testCmdDict
+        }
+        __report_message__ "testCmdDict size: [dict size ${testCmdDict}], performance: ${-performance}" -debug
 
         catch {config_message -show_timestamp false}
 
@@ -857,7 +882,9 @@ namespace eval __GEN_RESULT_FLOW__ {
         puts ""
         puts "选项:"
         puts "  -failed_commands <dict>  命令失败字典内容 (默认 {})"
+        puts "  -failed_commandsName <varName>  命令失败字典的变量名 (按名引用, 大字典必须用它; 优先级高于 -failed_commands)"
         puts "  -lastError <dict>      上一次失败信息字典内容 (默认 {})"
+        puts "  -lastErrorName <varName>  上一次失败信息字典的变量名 (按名引用; 优先级高于 -lastError)"
         puts "  -help                打印此用法说明"
         puts ""
         puts "返回字符串:"
@@ -868,11 +895,21 @@ namespace eval __GEN_RESULT_FLOW__ {
     proc __format_cmd_failures_to_string__ {args} {
         set defValDict [dict create failed_commands {}]
         set defKeyDict [dict create -help 0]
-        set defKeyValDict [dict create -lastError {}]
+        set defKeyValDict [dict create -lastError {} -failed_commandsName {} -lastErrorName {}]
         optParse $defValDict $defKeyDict $defKeyValDict __format_cmd_failures_to_string_usage__ $args
 
         if { ${-help} } { __format_cmd_failures_to_string_usage__; __report_message__ "help mode, return" -debug; return }
-        __report_message__ "failed_commands: ${-failed_commands}" -debug
+
+        # 大字典按名引用(upvar)，避免字典值经过命令行传参及任何字符串化路径
+        if { ${-failed_commandsName} ne "" } {
+            unset {-failed_commands}
+            upvar 1 ${-failed_commandsName} {-failed_commands}
+        }
+        if { ${-lastErrorName} ne "" } {
+            unset {-lastError}
+            upvar 1 ${-lastErrorName} {-lastError}
+        }
+        __report_message__ "failed_commands size: [dict size ${-failed_commands}], lastError size: [dict size ${-lastError}]" -debug
 
         set result ""
 

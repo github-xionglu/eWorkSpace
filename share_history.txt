@@ -135,22 +135,33 @@
 
 1~5：
     0717：    自动上传回归
-        
-    0724：   黄冬：tclsh脚本自动打包
+    
+    出题顺序：黄冬、吴俊、燕宁、悦彬、一航
+    0724：   tclsh脚本自动打包
 
-    0731：   吴俊：
+    0731：   temp reg case 1:
+        按照回归模板刷回归；按照回归优化模板
 
-    0807：   燕宁
+    0807：   temp reg case 2
+        按照回归模板刷回归；按照回归优化模板
 
-    0814：   悦彬
+    0814：   -
 
-    0821：   家荣
+    0821：   读temp design的design缩减
 
-    0828：   tclsh练习收获总结
+    0828：   
 
-    0904：   sh，python
+    0904：   tclsh练习收获总结
+    
+    0911：  sh，python
 
+    0918:
 
+    0925：  自动化分析对比失败的message，分类归类：
+        match（failed body）、failed（obj、line、file）、missing、false
+
+    1016：  自动化分析对比失败的message，分类归类：
+        match（failed body）、failed（obj、line、file）、missing、false
 
 
 

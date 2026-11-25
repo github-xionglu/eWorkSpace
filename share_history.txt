@@ -163,5 +163,25 @@
     1016：  自动化分析对比失败的message，分类归类：
         match（failed body）、failed（obj、line、file）、missing、false
 
+    1023：  awk --- 一航
+
+    1030：python  --- jun, hd
+
+    1106：数字电路 ram
+
+    1113：数字电路 组合逻辑（门集合、组合逻辑电路、组合逻辑设计方法）
+
+    1120：数字电路 时许逻辑
+
+    1127：数字电路 复盘 
+
+    1204：verilog
+
+    1211：verilog
+
+    1218：verilog
+
+    1225：verilog
+
 
 
